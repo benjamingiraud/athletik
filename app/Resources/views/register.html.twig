@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+{% block main %}
+    <div id="what" class="form column-start hidden">
+        <div class="title-container">
+        <h1 class="logo signup">Créer un compte</h1>
+        <span class="warning tip logo lightgreen"><i>Tout les champs suivants sont obligatoires.</i></span>
+        </div>
+        {% if not form.vars.valid %}
+        <div class="dialog" title="Echec lors de la création du compte">
+            <ul>
+            {% for child in form.children %}
+                {# Display the errors of the form item #}
+                {%for error in child.vars.errors%}
+                    <li>{{error.message}}</li>
+                {%endfor%}
+            {%endfor%}
+            </ul>
+       </div>
+        {% endif %}
+        {{ form_start(form, {'attr': {'class': 'column-start'} }) }}
+                <div>
+                {{ form_label(form.username) }}
+                {{ form_widget(form.username) }}
+                </div>
+                <div>
+                {{ form_label(form.password.first) }}
+                {{ form_widget(form.password.first) }}
+                </div>
+                <div>
+                {{ form_label(form.password.second) }}
+                {{ form_widget(form.password.second) }}
+                </div>
+                <div>
+                {{ form_label(form.category) }}
+                {{ form_widget(form.category) }}
+                </div>
+                <div>
+                {{ form_label(form.lastname) }}
+                {{ form_widget(form.lastname) }}
+                </div>
+                 <div>
+                {{ form_label(form.firstname) }}
+                {{ form_widget(form.firstname) }}
+                </div>
+                <div class="subtmit-container">
+                    <button class='inputfont' type="submit">Créez votre compte!</button>
+                </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

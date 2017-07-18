@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}{# empty Twig template #}
+{% block main %}
+    <div id="what" class="form column-start hidden">
+        <div class="title-container">
+            {% if error %}
+                <div class="dialog" title="Echec de la connexion">
+                    <span>Le mot de passe et le nom d'utilisateur renseignés ne correspondent pas.</span>
+                </div>
+            {% endif %}
+            <h1 class="logo signup">Connexion</h1>
+        </div>
+        <form class="column-start" method="post" action={{ path('login') }}>
+            <div class="labeled_input-container">
+                <label for='_username' class="legend">Nom d'utilisateur :</label>
+                <input type="text" name="_username" required/>
+            </div>
+            <div class="labeled_input-container">
+                <label for='_password' class="legend">Mot de passe :</label>
+                <input type="password" name="_password" required />
+            </div>
+            <div class="keeplogged">
+            <input class="css-checkbox" name="_remember_me" type="checkbox" id="checkbox1" />
+            <label class="css-label" for="_remember_me">Souvenez-vous de moi!</label>
+            </div>
+            <div class="subtmit-container">
+                <button class="inputfont" type="submit">Se connecter!</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

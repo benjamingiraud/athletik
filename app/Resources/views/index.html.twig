@@ -2,19 +2,19 @@
 
 {% block main %}
     <div class="column-start">
-        <div class="presentation">
+        <div id="what" class="presentation hidden">
             <h2>Qu'est ce qu'Atletik ?</h2>
             <p>L’association « athletik – les 1000 pas » organise un challenge tous les ans de 5 courses à pieds de 1000m. Sa particularité est de programmer des courses en mélangeant toutes les catégories d’age des participants. De 7 à 77 ans, tout le monde à ses chances !</p>
         </div>
-        <div class="presentation">
+        <div id="who" class="presentation hidden">
             <h2>Qui peut y participer ?</h2>
             <p>Tout le monde! Hommes, femmes, enfants, sportif de base ou non, tout le monde peut participer et qui plus est espérer gagner! En efet l'attribution des points prend en compte l'âge du coureur!</p>
         </div>
-        <div class="presentation">
+        <div id="how"class="presentation hidden">
             <h2>Comment puis-je y participer?</h2>
             <p>C'est très simple, il vous sufit pour celà de vous <a href="" class="underline">créer un compte</a> et de vous inscrire aux courses qui vous intéresse!</p>
         </div>
-        <div class="presentation">
+        <div id="where" class="presentation">
             <h2>Où et quand auront lieu les prochaines courses?</h2>
             <div class="list-courses">
                 <ul class="bxslider">
@@ -22,12 +22,14 @@
                         <li>
                             <a id="slider-meeting" href="">
                                 <div class="column-start">
-                                    <div class="title-meeting">{{ meeting.name }} :</div>
+                                    <div class="title-meeting">{{ meeting.name }}</div>
                                     <div class="row-around center bordered">
                                         <div>
                                             <img src="{{ asset('img/'~ meeting.img ~'' ) }}" alt={{ meeting.name }} />
                                         </div>
-                                        <div class="description">
+                                        <div class="description column-center">
+                                            <div></div>
+                                            <div></div>
                                             {{ meeting.description }}
                                         </div>
                                     </div>
