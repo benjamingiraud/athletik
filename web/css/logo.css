@@ -1,0 +1,66 @@
+.logo::before, .logo::after {
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: none;
+}
+.logo::before {
+    padding-right: 0.5em;
+}
+.logo::after {
+    padding-left: 0.5em;
+}
+.signin::before {
+    content: '\f007';
+}
+.home::before {
+    content: '\f015';
+}
+.signup::before {
+    content: '\f234';
+}
+.search::before {
+    content: '\f002';
+}
+.redirect::after {
+    content: '\f08e';
+}
+.car::after {
+    content: '\f1b9';
+}
+.menudown::before {
+    content: '\f078';
+}
+.phone::before {
+    content: '\f095';
+}
+.mail::before {
+    content: '\f0e0';
+}
+.date::before {
+    content: '\f073';
+}
+.black {
+    color: black;
+}
+.selected::before {
+    content: '\f06e';
+}
+.warning::before, .warning::after {
+    content: '\f071';
+}
+.advert::before {
+    content: '\f0a1';
+}
+.active::before {
+    content: '\f077';
+}
+.blabla::before {
+    content: '\f0c0';
+}
+.mustbelogged::before {
+    content: '\f2bd';
+}
+.classement::before {
+    content: '\f03a';
+}

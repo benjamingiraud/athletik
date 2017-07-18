@@ -2,22 +2,37 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Athletik{% endblock %}</title>
         {% block stylesheets %}
             {% stylesheets 'css/*' filter='cssrewrite' %}
                 <link rel="stylesheet" href="{{ asset_url }}" />
             {% endstylesheets %}
             <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link href="https://fonts.googleapis.com/css?family=Dosis|Lobster" rel="stylesheet"> 
             <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
         {% endblock %}
     </head>
     <body>
+        <header>
+            <h1>Athletik</h1>
+        </header>
+        <nav class='row-around'>
+            <div class="nav-links">
+                <a class="logo home" href="">Acceuil</a><a class="logo date" href="">Courses</a><a class="logo blabla" href="">Inscrits</a><a class="logo classement" href="">Classement</a>
+            </div>
+            <div class="profile">
+                <a class="logo signin" href ="">Se connecter</a><a class="logo signup" href ="">S'inscire</a>
+            </div>
+        </nav>
         <main>
             {% block main %}{% endblock %}
         </main>
         {% block javascripts %}
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
             <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
+            {% javascripts 'js/slider/*' %}
+            <script src="{{ asset_url }}"></script>
+            {% endjavascripts %}
             {% javascripts 'js/*' %}
                 <script src="{{ asset_url }}"></script>
             {% endjavascripts %}
