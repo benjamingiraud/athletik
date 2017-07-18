@@ -20,6 +20,7 @@ class ResultController extends Controller
         $query = $em->createQuery('SELECT r
                                    FROM AppBundle:Result r
                                    GROUP BY r.meeting
+                                   HAVING count(r) > 1
                                   ');
         
         $results = $query->getResult();
