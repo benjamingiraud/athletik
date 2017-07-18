@@ -13,21 +13,24 @@
         {% endblock %}
     </head>
     <body>
+        <div class="background-img"></div>
         <header>
-            <h1>Athletik</h1>
+            <h1 id="title">Athletik</h1>
         </header>
-        <nav class='row-around'>
-            <div class="nav-links">
-                <a class="logo home" href="{{ path('index') }}">Accueil</a><a class="logo date" href="">Courses</a><a class="logo blabla" href="">Inscrits</a><a class="logo classement" href="">Classement</a>
-            </div>
-            <div class="profile">
-                {% if app.user %}
-                            <a class="logo signin coollinks" href="{#{{ path('profile', { username : app.user.username }) }}#}">{{ app.user.username }}</a><a class="logo disconnect" href="{{ path('logout') }}">Déconnexion</a>
-                {% else %}
-                            <a class="logo signin" href="{{ path("login") }}">Se connecter</a><a class="logo signup" href="{{ path("register") }}">S'inscrire</a>
-                {% endif %}    
-            </div>
-        </nav>
+        <div class="nav-wrapper hidden">
+            <nav id="sticker" class='row-around'>
+                <div class="nav-links">
+                    <a class="logo home" href="{{ path('index') }}">Accueil</a><a class="logo date" href="{{ path("meetings") }}">Evenements à venir</a><a class="logo classement" href="{{ path("results") }}">Résultats</a>
+                </div>
+                <div class="profile">
+                    {% if app.user %}
+                                <a class="logo signin coollinks" href="{#{{ path('profile', { username : app.user.username }) }}#}">{{ app.user.username }}</a><a class="logo disconnect" href="{{ path('logout') }}">Déconnexion</a>
+                    {% else %}
+                                <a class="logo signin" href="{{ path("login") }}">Se connecter</a><a class="logo signup" href="{{ path("register") }}">S'inscrire</a>
+                    {% endif %}    
+                </div>
+            </nav>
+        </div>
         <main>
             {% block main %}{% endblock %}
         </main>
@@ -35,6 +38,9 @@
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
             <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
             {% javascripts 'js/slider/*' %}
+            <script src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+            {% javascripts 'js/sticky/*' %}
             <script src="{{ asset_url }}"></script>
             {% endjavascripts %}
             {% javascripts 'js/*' %}

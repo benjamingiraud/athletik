@@ -1,20 +1,20 @@
 {% extends 'base.html.twig' %}
 
 {% block main %}
-    <div class="column-start">
-        <div id="what" class="presentation hidden">
+    <div class="column-start index">
+        <div id="what" class="presentation hidden effect">
             <h2>Qu'est ce qu'Athletik ?</h2>
             <p>L’association « athletik – les 1000 pas » organise un challenge tous les ans de 5 courses à pieds de 1000m. Sa particularité est de programmer des courses en mélangeant toutes les catégories d’age des participants. De 7 à 77 ans, tout le monde à ses chances !</p>
         </div>
-        <div id="who" class="presentation hidden">
+        <div id="who" class="presentation hidden effect">
             <h2>Qui peut y participer ?</h2>
-            <p>Tout le monde! Hommes, femmes, enfants, sportif de base ou non, tout le monde peut participer et qui plus est espérer gagner! En efet l'attribution des points prend en compte l'âge du coureur!</p>
+            <p>Tout le monde! Hommes, femmes, enfants, sportif de base ou non, tout le monde peut participer et qui plus est espérer gagner! En effet l'attribution des points prend en compte l'âge du coureur!</p>
         </div>
-        <div id="how"class="presentation hidden">
+        <div id="how" class="presentation hidden effect">
             <h2>Comment puis-je y participer?</h2>
-            <p>C'est très simple, il vous sufit pour celà de vous <a href="" class="underline">créer un compte</a> et de vous inscrire aux courses qui vous intéresse!</p>
+            <p>C'est très simple, il vous suffit pour celà de vous <a href="" class="underline">créer un compte</a> et de vous inscrire aux courses qui vous intéresse!</p>
         </div>
-        <div id="where" class="presentation">
+        <div id="where" class="presentation visibility">
             <h2>Où et quand auront lieu les prochaines courses?</h2>
             <div class="list-courses">
                 <ul class="bxslider">
@@ -24,7 +24,7 @@
                                 <div class="column-start">
                                     <div class="title-meeting">{{ meeting.name }}</div>
                                     <div class="row-around center bordered">
-                                        <div>
+                                        <div class="img-div">
                                             <img src="{{ asset('img/'~ meeting.img ~'' ) }}" alt={{ meeting.name }} />
                                         </div>
                                         <div class="column-start">
