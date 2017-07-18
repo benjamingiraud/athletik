@@ -21,7 +21,7 @@ header h1 {
 h2 {
     font-family: 'Lobster', cursive;
     text-align: center;
-    font-size: 4em;
+    font-size: 2em;
 }
 header {
     text-align: center;
@@ -33,9 +33,9 @@ main {
     margin: 2em auto;
     text-align: center;
 }
-div.presentation {
+/*div.presentation {
     border-bottom: 1px solid black;
-}
+}*/
 .presentation {
     margin-top: 1em;
 }
@@ -147,4 +147,12 @@ button:hover {
     background-color: white;
     color: black;
     box-shadow: 0 0 5px black;
+}
+.logoinline{
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+}
+p {
+    color: black;
 }

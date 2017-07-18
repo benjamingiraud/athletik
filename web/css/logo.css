@@ -64,3 +64,6 @@
 .classement::before {
     content: '\f03a';
 }
+.disconnect::before {
+    content: "\f011";
+}

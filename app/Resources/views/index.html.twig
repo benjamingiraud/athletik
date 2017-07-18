@@ -3,7 +3,7 @@
 {% block main %}
     <div class="column-start">
         <div id="what" class="presentation hidden">
-            <h2>Qu'est ce qu'Atletik ?</h2>
+            <h2>Qu'est ce qu'Athletik ?</h2>
             <p>L’association « athletik – les 1000 pas » organise un challenge tous les ans de 5 courses à pieds de 1000m. Sa particularité est de programmer des courses en mélangeant toutes les catégories d’age des participants. De 7 à 77 ans, tout le monde à ses chances !</p>
         </div>
         <div id="who" class="presentation hidden">
@@ -27,10 +27,15 @@
                                         <div>
                                             <img src="{{ asset('img/'~ meeting.img ~'' ) }}" alt={{ meeting.name }} />
                                         </div>
-                                        <div class="description column-center">
-                                            <div></div>
-                                            <div></div>
-                                            {{ meeting.description }}
+                                        <div class="column-start">
+                                            <div class="column-center">
+                                                <p><b>Date : </b></p>
+                                                <p>{{ meeting.date|date('d/m/Y')}}</p>
+                                            </div>
+                                            <div class="column-start">
+                                                <p><b>Description : </b></p>
+                                                <p>{{ meeting.description }}</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
