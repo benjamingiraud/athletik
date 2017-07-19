@@ -31,7 +31,7 @@ header {
     text-align: center;
     padding: 1em 0;
 }
-#title {
+.title {
      -webkit-animation-name: spinner; 
     -webkit-animation-timing-function: linear; 
     -webkit-animation-iteration-count: infinite; 
@@ -111,8 +111,16 @@ main {
     flex-direction: row;
     justify-content: space-around;
 }
+.row-start {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
 .center {
     align-items: center;
+}
+.stretch {
+    align-items: stretch;
 }
 .row-between{
     display: flex;
@@ -125,6 +133,7 @@ main {
     justify-content: flex-start;
 }
 nav {
+    width: 100%;
     padding: 1em;
     background: rgba(255, 255, 255, 0.35);
 }
@@ -173,7 +182,7 @@ ul {
 .title-container {
     margin-bottom: 2em;
 }
-input, select, button {
+input, select, button, textarea {
     border: none;
     box-shadow: 0 0 1px black;
     box-sizing: border-box;
@@ -181,6 +190,9 @@ input, select, button {
     width: 25%;
     margin: 0.5em auto 0 auto;
     transition: 0.33s all ease-out;
+}
+textarea {
+    resize: vertical;
 }
 form div {
     display: flex;
@@ -241,7 +253,6 @@ button.plusinfos {
     padding: 2em 0;
 }
 .registermeeting {
-    width: 100%;
     padding: 1em;
     color: white;
     background: rgba(0, 0, 0, 0.5);
@@ -257,4 +268,40 @@ button.plusinfos {
 .descriptionmeeting {
     width: 75%;
     margin: auto;
+}
+.array {
+    width: 75%;
+    margin:auto;
+}
+.array-row {
+    width: 100%;
+}
+.array-column {
+    margin: 0.25em 0;
+    text-align: left;
+}
+.title-row {
+    background: rgba(0, 0, 0, 0.75);
+    color: white;
+    padding: 0.25em 0.5em;
+}
+.nav-wrapper {
+    width: 100%;
+}
+.nav-wrappering {
+    margin: auto;
+    width: 75%;
+}
+#minititle {
+    color:white;
+    text-shadow: 2px 2px 2px black;
+}
+.adminadd {
+    padding: 1em;
+    background: rgba(0, 0, 0, 0.75);
+    color: white;
+    font-size: 125%;
+    width: 100%;
+    box-sizing: border-box;
+    cursor: pointer;
 }

@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+{% block main %}
+    <div id="what" class="form column-start hidden effect index">
+        <div class="title-container">
+        <h1 class="logo signup">Créer un nouvel évenement</h1>
+        </div>
+        {% if not form.vars.valid %}
+        <div class="dialog" title="Echec lors de la création de l'événement">
+            <ul>
+            {% for child in form.children %}
+                {# Display the errors of the form item #}
+                {%for error in child.vars.errors%}
+                    <li>{{error.message}}</li>
+                {%endfor%}
+            {%endfor%}
+            </ul>
+       </div>
+        {% endif %}
+        {{ form_start(form, {'attr': {'class': 'column-start'} }) }}
+                <div>
+                {{ form_label(form.name) }}
+                {{ form_widget(form.name) }}
+                </div>
+                <div>
+                {{ form_label(form.description) }}
+                {{ form_widget(form.description) }}
+                </div>
+                <div>
+                {{ form_label(form.date) }}
+                {{ form_widget(form.date) }}
+                </div>
+                <div>
+                {{ form_label(form.img) }}
+                {{ form_widget(form.img) }}
+                </div>
+                <div class="subtmit-container">
+                    <button class='inputfont' type="submit">Ajouter l'évement!</button>
+                </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

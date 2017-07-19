@@ -67,3 +67,6 @@
 .disconnect::before {
     content: "\f011";
 }
+.add:before {
+    content: "\f067";
+}

@@ -27,6 +27,12 @@
         <option name="fixed"/>
       </options>
     </field>
+    <field name="role" type="string" column="role" length="32" nullable="false">
+      <options>
+        <option name="fixed"/>
+        <option name="default">ROLE_USER</option>
+      </options>
+    </field>
     <many-to-one field="category" target-entity="Category" fetch="LAZY">
       <join-columns>
         <join-column name="category" referenced-column-name="id"/>

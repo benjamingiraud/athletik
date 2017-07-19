@@ -9,25 +9,29 @@
             {% endstylesheets %}
             <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
             <link href="https://fonts.googleapis.com/css?family=Dosis|Lobster" rel="stylesheet"> 
+            <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
             <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
         {% endblock %}
     </head>
     <body>
         <div class="background-img"></div>
         <header>
-            <h1 id="title">Athletik</h1>
+            <h1 class="title">Athletik</h1>
         </header>
         <div class="nav-wrapper hidden">
-            <nav id="sticker" class='row-around'>
-                <div class="nav-links">
-                    <a class="logo home" href="{{ path('index') }}">Accueil</a><a class="logo date" href="{{ path("meetings") }}">Evenements à venir</a><a class="logo classement" href="{{ path("results") }}">Résultats</a>
-                </div>
-                <div class="profile">
-                    {% if app.user %}
-                                <a class="logo signin coollinks" href="{#{{ path('profile', { username : app.user.username }) }}#}">{{ app.user.username }}</a><a class="logo disconnect" href="{{ path('logout') }}">Déconnexion</a>
-                    {% else %}
-                                <a class="logo signin" href="{{ path("login") }}">Se connecter</a><a class="logo signup" href="{{ path("register") }}">S'inscrire</a>
-                    {% endif %}    
+            <nav id="sticker">
+                <div class="nav-wrappering row-between center">
+                    <h2 id="minititle" class="title hidden">Athletik</h2>
+                    <div class="nav-links">
+                        <a class="logo home" href="{{ path('index') }}">Accueil</a><a class="logo date" href="{{ path("meetings") }}">Evenements à venir</a><a class="logo classement" href="{{ path("results") }}">Résultats</a>
+                    </div>
+                    <div class="profile">
+                        {% if app.user %}
+                                    <a class="logo signin coollinks" href="{#{{ path('profile', { username : app.user.username }) }}#}">{{ app.user.username }}</a><a class="logo disconnect" href="{{ path('logout') }}">Déconnexion</a>
+                        {% else %}
+                                    <a class="logo signin" href="{{ path("login") }}">Se connecter</a><a class="logo signup" href="{{ path("register") }}">S'inscrire</a>
+                        {% endif %}    
+                    </div>
                 </div>
             </nav>
         </div>

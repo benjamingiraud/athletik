@@ -196,7 +196,7 @@ class User implements UserInterface, Serializable
         
     }
     public function getRoles() {
-        return array('ROLE_USER'); //TODO
+        return array($this->role);
     }
     public function getSalt() {
         return null;
@@ -223,5 +223,34 @@ class User implements UserInterface, Serializable
     public function equals(UserInterface $user)
     {
         return $user->getUsername() == $this->getUsername();
+    }
+    /**
+     * @var string
+     */
+    private $role = 'ROLE_USER';
+
+
+    /**
+     * Set role
+     *
+     * @param string $role
+     *
+     * @return User
+     */
+    public function setRole($role)
+    {
+        $this->role = $role;
+
+        return $this;
+    }
+
+    /**
+     * Get role
+     *
+     * @return string
+     */
+    public function getRole()
+    {
+        return $this->role;
     }
 }

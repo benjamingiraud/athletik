@@ -1,13 +1,16 @@
 {% extends 'base.html.twig' %}
 {% block main %}
     <div class="form column-start">
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path("new_meeting") }}" class="logo add adminadd">Ajouter un nouvel événement</a>
+        {% endif %}
         {% for event in events %}
                 <div class="meeting-container column-start index hidden effect">
                     <div>
                         <div class="sumup row-between">
                             <div class="infos-container row-around center">
                                 <h2> {{ event.name }} </h2>
-                                <p class="dateinfo"><b> le  {{ event.date|date('d/m/y') }}</b></p>
+                                <p class="dateinfo"><b> prévu pour le : {{ event.date|date('d/m/y') }}</b></p>
                             </div>
                             <div class="plusinfo-container row-around center">
                                 <div class="logo menudown plusinfos">Plus d'infos</div>
@@ -15,18 +18,14 @@
                         </div>
                     </div>
                     <div class="eventinfo column-start hidden">
-                        <div>
-                            <img src="{{ asset('img/'~ event.img ~'' ) }}" alt={{ event.name }} />
-                        </div>
+                            <img src="{{ asset('img/' ~ event.img) }}" alt={{ event.name }} />
                         <div>
                             
                         </div>
                         <div class="descriptionmeeting">
                             <p>{{ event.description }}</p>
                         </div>
-                        <div class="fullwidth">
                             <a class="registermeeting" href="">S'inscire à cette course!</a>
-                        </div>
                     </div>
                 </div>
         {% endfor %}

@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 {% block main %}
     <div class="form column-start">
-        {% for meet in finished %}
+        {% for finished_meeting in finished_meetings %}
                 <div class="meeting-container column-start index hidden effect">
                     <div>
                         <div class="sumup row-between">
                             <div class="infos-container row-around center">
-                                {#<h2> {{ result.meeting.name }} </h2>#}
-                                <p class="dateinfo"><b> fini le {#{{ result.meeting.date|date('d/m/y') }}#}</b></p>
+                                <h2> {{ finished_meeting.name }} </h2>
+                                <p class="dateinfo"><b> avait été organisé le {{ finished_meeting.date|date('d/m/y') }}</b></p>
                             </div>
                             <div class="plusinfo-container row-around center">
                                 <div class="logo menudown plusinfos">Plus d'infos</div>
@@ -16,15 +16,65 @@
                     </div>
                     <div class="eventinfo column-start hidden">
                         <div>
-                            {#<img src="{{ asset('img/'~ result.meeting.img ~'' ) }}" alt={{ result.meeting.name }} />#}
+                            <img src="{{ asset('img/'~ finished_meeting.img ~'' ) }}" alt={{ finished_meeting.name }} />
                         </div>
                         <div class="descriptionmeeting">
-                            <p>{#{{ result.meeting.description }}#}</p>
+                            <p>{{ finished_meeting.description }}</p>
                         </div>
-                        <div>
-                            {% for result in results if result.meeting.id == meet.id %}
-                                <div>{{ result.athlete.firstname }}</div>
-                            {% endfor %}
+                        <div class="row-start array">
+                            <div class="array-row column-start">
+                                <div class="title-row">
+                                    <span><b>Nom</b></span>
+                                </div>
+                                <div class="array-column center column-start">
+                                    {% for result in results_meetings if result.meeting.id == finished_meeting.id %}
+                                        <span class="array-column">{{ result.athlete.lastname }}</span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="array-row column-start">
+                                <div class="title-row">
+                                    <span><b>Prénom</b></span>
+                                </div>
+                                <div class="array-column center column-start">
+                                    {% for result in results_meetings if result.meeting.id == finished_meeting.id %}
+                                        <span class="array-column">{{ result.athlete.firstname }}</span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="array-row column-start">
+                                <div class="title-row">
+                                    <span><b>Catégorie</b></span>
+                                </div>
+                                <div class="array-column center column-start">
+                                    {% for result in results_meetings if result.meeting.id == finished_meeting.id %}
+                                        <span class="array-column">{{ result.athlete.category.name }}</span>
+                                    {% endfor %}
+                                </div>
+                                
+                            </div>
+                            <div class="array-row column-start">
+                                <div class="title-row">
+                                    <span><b>Temps</b></span>
+                                </div>
+                                <div class="array-column center column-start">
+                                    {% for result in results_meetings if result.meeting.id == finished_meeting.id %}
+                                        <span class="array-column">{{ result.time }}</span>
+                                    {% endfor %}
+                                </div>
+                                
+                            </div>
+                            <div class="array-row column-start">
+                                <div class="title-row">
+                                    <span><b>Points</b></span>
+                                </div>
+                                <div class="array-column center column-start">
+                                    {% for result in results_meetings if result.meeting.id == finished_meeting.id %}
+                                        <span class="array-column">{{ result.points }}</span>
+                                    {% endfor %}
+                                </div>
+                                
+                            </div>
                         </div>
                     </div>
                 </div>
