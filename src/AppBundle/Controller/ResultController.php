@@ -17,13 +17,17 @@ class ResultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $query = $em->createQuery('SELECT r
+        $query = $em->createQuery('SELECT COUNT(r.meeting) as nb, IDENTITY(r.meeting) as id
                                    FROM AppBundle:Result r
                                    GROUP BY r.meeting
-                                   HAVING count(r) > 1
                                   ');
         
-        $results = $query->getResult();
-        return $this->render('results.html.twig', array ('results' => $results));
+        $meetinFinished = $query->getResult();
+        
+        $query2 = $em->createQuery('SELECT r FROM AppBundle:Result r');
+        $results = $query2->getResult();
+        return $this->render('results.html.twig', 
+                array ('results' => $results,
+                       'finished' => $meetinFinished));
     }
 }

@@ -1,14 +1,13 @@
 {% extends 'base.html.twig' %}
 {% block main %}
     <div class="form column-start">
-        {{ dump(results) }}
-        {% for result in results %}
+        {% for meet in finished %}
                 <div class="meeting-container column-start index hidden effect">
                     <div>
                         <div class="sumup row-between">
                             <div class="infos-container row-around center">
-                                <h2> {{ result.meeting.name }} </h2>
-                                <p class="dateinfo"><b> fini le {{ result.meeting.date|date('d/m/y') }}</b></p>
+                                {#<h2> {{ result.meeting.name }} </h2>#}
+                                <p class="dateinfo"><b> fini le {#{{ result.meeting.date|date('d/m/y') }}#}</b></p>
                             </div>
                             <div class="plusinfo-container row-around center">
                                 <div class="logo menudown plusinfos">Plus d'infos</div>
@@ -17,14 +16,14 @@
                     </div>
                     <div class="eventinfo column-start hidden">
                         <div>
-                            <img src="{{ asset('img/'~ result.meeting.img ~'' ) }}" alt={{ result.meeting.name }} />
+                            {#<img src="{{ asset('img/'~ result.meeting.img ~'' ) }}" alt={{ result.meeting.name }} />#}
                         </div>
                         <div class="descriptionmeeting">
-                            <p>{{ result.meeting.description }}</p>
+                            <p>{#{{ result.meeting.description }}#}</p>
                         </div>
                         <div>
-                            {% for mec in result.athlete %}
-                                <div>{{mec.firstname}}</div>
+                            {% for result in results if result.meeting.id == meet.id %}
+                                <div>{{ result.athlete.firstname }}</div>
                             {% endfor %}
                         </div>
                     </div>

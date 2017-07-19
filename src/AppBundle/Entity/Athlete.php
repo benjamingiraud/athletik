@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Athlete
  *
- * @ORM\Table(name="athlete")
+ * @ORM\Table(name="athlete", indexes={@ORM\Index(name="FK_CategoryID2", columns={"category"})})
  * @ORM\Entity
  */
 class Athlete
@@ -27,13 +27,6 @@ class Athlete
     private $lastname;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="birthdate", type="date", nullable=false)
-     */
-    private $birthdate;
-
-    /**
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")
@@ -41,6 +34,16 @@ class Athlete
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
+
+    /**
+     * @var \AppBundle\Entity\Category
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Category")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="category", referencedColumnName="id")
+     * })
+     */
+    private $category;
 
 
 
@@ -93,30 +96,6 @@ class Athlete
     }
 
     /**
-     * Set birthdate
-     *
-     * @param \DateTime $birthdate
-     *
-     * @return Athlete
-     */
-    public function setBirthdate($birthdate)
-    {
-        $this->birthdate = $birthdate;
-
-        return $this;
-    }
-
-    /**
-     * Get birthdate
-     *
-     * @return \DateTime
-     */
-    public function getBirthdate()
-    {
-        return $this->birthdate;
-    }
-
-    /**
      * Get id
      *
      * @return integer
@@ -124,5 +103,29 @@ class Athlete
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set category
+     *
+     * @param \AppBundle\Entity\Category $category
+     *
+     * @return Athlete
+     */
+    public function setCategory(\AppBundle\Entity\Category $category = null)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return \AppBundle\Entity\Category
+     */
+    public function getCategory()
+    {
+        return $this->category;
     }
 }

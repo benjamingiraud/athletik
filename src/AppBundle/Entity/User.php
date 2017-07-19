@@ -2,43 +2,65 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use Serializable;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * User
+ *
+ * @ORM\Table(name="user", indexes={@ORM\Index(name="FK_CategoryID", columns={"category"})})
+ * @ORM\Entity
  */
 class User implements UserInterface, Serializable
 {
     /**
      * @var string
+     *
+     * @ORM\Column(name="username", type="string", length=128, nullable=false)
      */
     private $username;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="password", type="string", length=512, nullable=false)
      */
     private $password;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="lastname", type="string", length=64, nullable=false)
      */
     private $lastname;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="firstname", type="string", length=64, nullable=false)
      */
     private $firstname;
 
     /**
      * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
      * @var Category
+     *
+     * @ORM\ManyToOne(targetEntity="Category")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="category", referencedColumnName="id")
+     * })
      */
     private $category;
+
 
 
     /**
@@ -203,4 +225,3 @@ class User implements UserInterface, Serializable
         return $user->getUsername() == $this->getUsername();
     }
 }
-
