@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Inscription;
 use AppBundle\Entity\Meeting;
 use AppBundle\Form\MeetingType;
 use DateTime;
@@ -17,7 +18,7 @@ class MeetingController extends Controller
      * @Route("/meetings", name="meetings")
      */
     
-    public function showAction()
+    public function showAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -26,9 +27,16 @@ class MeetingController extends Controller
                                    WHERE m.date > :now
                                    ORDER BY m.date ASC
                                   ')->setParameter("now", new DateTime("NOW"), Type::DATETIME);
+        $query2 = $em->createQuery('SELECT i
+                                   FROM AppBundle:Inscription i
+                                  ');
         
-        $meetings = $query->getResult();
-        return $this->render('meetings.html.twig', array ('events' => $meetings));
+        $meetings     = $query->getResult();
+        $inscriptions = $query2->getResult();
+        return $this->render('meetings.html.twig', array(
+                'events'       => $meetings,
+                'inscriptions' => $inscriptions
+        ));
     }
     /**
      * @Route("/meetings/add", name="new_meeting")
@@ -62,11 +70,33 @@ class MeetingController extends Controller
             $em->persist($meeting);
             $em->flush();
 
-             return $this->redirectToRoute('meetings');
+            return $this->redirectToRoute('meetings');
         }
 
         return $this->render('new_meeting.html.twig', array(
             'form' => $form->createView(),
         ));
+    }
+    /**
+     * @Route("/meetings/inscription/{meeting_id}", name="inscription_meeting")
+     */
+    public function InscriptionAction(Request $request, $meeting_id) {
+        
+        $em = $this->getDoctrine()->getManager();
+        $query_meeting = $em->createQuery('SELECT m
+                                   FROM AppBundle:Meeting m
+                                   WHERE m.id = :request_id
+                                  ')->setParameter("request_id", $meeting_id);
+        
+        $meetings = $query_meeting->getResult();
+        
+        $inscription = new Inscription();
+        $inscription->setUser($this->getUser());
+        $inscription->setMeeting($meetings[0]);
+        
+        $em->persist($inscription);
+        $em->flush();
+        
+        return $this->redirectToRoute('meetings');
     }
 }

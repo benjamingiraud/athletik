@@ -51,13 +51,13 @@
             </div>
             <div class="center column-start">
                 {% for general in generals %}
-                    <span class="array-column styletab">{{ general.ttime|round(0, 'ceil') }} min</span>
+                    <span class="array-column styletab">{{ general.ttime|number_format(2, 'min', 'sec') }} </span>
                 {% endfor %}
             </div>
         </div>
         <div class="array-row column-start">
             <div class="title-row">
-                <span><b>Points</b></span>
+                <span><b>Points total</b></span>
             </div>
             <div class="center column-start">
                 {% for general in generals %}
@@ -68,30 +68,48 @@
     </div>
     <div class="form column-start">
         <div class="index">
-            <h2 class="margin">Classement des courses de l'année 2017</h2>
+            <h2 class="margin">Classement par courses de l'année 2017</h2>
         </div>
+        
         {% for finished_meeting in finished_meetings %}
+            {% set hasResults = false %}
+            {% for result in results_meetings if result.meeting.id == finished_meeting.id %}
+                    {% set hasResults = true %}
+                {% else %}
+                    {% set hasResults = false %}
+            {% endfor %}
                 <div class="meeting-container column-start index hidden effect">
-                    <div>
-                        <div class="sumup row-between">
+                    <div class="margin-bottom">
+                        <div class="sumup row-between menudown-container">
                             <div class="infos-container row-around center">
                                 <h2> {{ finished_meeting.name }} </h2>
-                                <p class="dateinfo"><b> avait été organisé le {{ finished_meeting.date|date('d/m/y') }}</b></p>
+                                <p class="dateinfo"><b> a eu lieu le {{ finished_meeting.date|date('d/m/y') }}</b></p>
                             </div>
                             <div class="plusinfo-container row-around center">
                                 <div class="logo menudown plusinfos">Plus d'infos</div>
                             </div>
                         </div>
                     </div>
-                    <div class="eventinfo column-start hidden">
-                        <div class="row-start array">
+                    {% if hasResults %}
+                        <div class='hidden'>
+                        <div class="row-start array margin">
+                            <div class="small array-row column-start">
+                                <div class="title-row">
+                                    <span><b>#</b></span>
+                                </div>
+                                <div class="center column-start">
+                                    {% for result in results_meetings if result.meeting.id == finished_meeting.id %}
+                                            <span class="array-column styletab">{{ loop.index }}</span>
+                                    {% endfor %}
+                                </div>
+                            </div>
                             <div class="array-row column-start">
                                 <div class="title-row">
                                     <span><b>Nom</b></span>
                                 </div>
-                                <div class="array-column center column-start">
+                                <div class="center column-start">
                                     {% for result in results_meetings if result.meeting.id == finished_meeting.id %}
-                                        <span class="padding array-column">{{ result.athlete.lastname }}</span>
+                                        <span class="styletab array-column">{{ result.user.lastname }}</span>
                                     {% endfor %}
                                 </div>
                             </div>
@@ -99,9 +117,9 @@
                                 <div class="title-row">
                                     <span><b>Prénom</b></span>
                                 </div>
-                                <div class="array-column center column-start">
+                                <div class="center column-start">
                                     {% for result in results_meetings if result.meeting.id == finished_meeting.id %}
-                                        <span class="padding array-column">{{ result.athlete.firstname }}</span>
+                                        <span class="styletab array-column">{{ result.user.firstname }}</span>
                                     {% endfor %}
                                 </div>
                             </div>
@@ -109,36 +127,107 @@
                                 <div class="title-row">
                                     <span><b>Catégorie</b></span>
                                 </div>
-                                <div class="array-column center column-start">
+                                <div class="center column-start">
                                     {% for result in results_meetings if result.meeting.id == finished_meeting.id %}
-                                        <span class="padding array-column">{{ result.athlete.category.name }}</span>
+                                        <span class="styletab array-column">{{ result.user.category.name }}</span>
                                     {% endfor %}
                                 </div>
-                                
+
                             </div>
                             <div class="array-row column-start">
                                 <div class="title-row">
                                     <span><b>Temps</b></span>
                                 </div>
-                                <div class="array-column center column-start">
+                                <div class="center column-start">
                                     {% for result in results_meetings if result.meeting.id == finished_meeting.id %}
-                                        <span class="padding array-column">{{ result.time }}</span>
+                                        <span class="styletab array-column">{{ result.time|number_format(2, 'min', 'sec') }}</span>
                                     {% endfor %}
                                 </div>
-                                
+
                             </div>
                             <div class="array-row column-start">
                                 <div class="title-row">
                                     <span><b>Points</b></span>
                                 </div>
-                                <div class="array-column center column-start">
+                                <div class="center column-start">
                                     {% for result in results_meetings if result.meeting.id == finished_meeting.id %}
-                                        <span class="padding array-column">{{ result.points }}</span>
+                                        <span class="styletab array-column">{{ result.points }}</span>
                                     {% endfor %}
                                 </div>
                             </div>
                         </div>
-                    </div>
+                        </div>
+                    {% else %}
+                        <div class="row-start hidden margin-auto center">
+                            <div>
+                                <p>Résultat pas encore disponible!</p>
+                            </div>
+                            <div class="row-start array margin">
+                            <div class="small array-row column-start">
+                                <div class="title-row">
+                                    <span><b>#</b></span>
+                                </div>
+                                <div class="center column-start">
+                                    {% for registered in inscriptions if registered.meeting.id == finished_meeting.id %}
+                                            <span class="array-column styletab">{{ loop.index }}</span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="array-row column-start">
+                                <div class="title-row">
+                                    <span><b>Nom</b></span>
+                                </div>
+                                <div class="center column-start">
+                                    {% for registered in inscriptions if registered.meeting.id == finished_meeting.id %}
+                                        <span class="styletab array-column">{{ registered.user.lastname }}</span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="array-row column-start">
+                                <div class="title-row">
+                                    <span><b>Prénom</b></span>
+                                </div>
+                                <div class="center column-start">
+                                    {% for registered in inscriptions if registered.meeting.id == finished_meeting.id %}
+                                        <span class="styletab array-column">{{ registered.user.firstname }}</span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="array-row column-start">
+                                <div class="title-row">
+                                    <span><b>Catégorie</b></span>
+                                </div>
+                                <div class="center column-start">
+                                    {% for registered in inscriptions if registered.meeting.id == finished_meeting.id %}
+                                        <span class="styletab array-column">{{ registered.user.category.name }}</span>
+                                    {% endfor %}
+                                </div>
+
+                            </div>
+                            <div class="array-row column-start">
+                                <div class="title-row">
+                                    <span><b>Temps</b></span>
+                                </div>
+                                <div class="center column-start">
+                                    {% for registered in inscriptions if registered.meeting.id == finished_meeting.id %}
+                                        <input placeholder="Entrez le temps" class="styletab fixinput array-column">
+                                    {% endfor %}
+                                </div>
+
+                            </div>
+                            <div class="array-row column-start">
+                                <div class="title-row">
+                                    <span><b>Points</b></span>
+                                </div>
+                                <div class="center column-start">
+                                    {% for registered in inscriptions if registered.meeting.id == finished_meeting.id %}
+                                        <p class="styletab array-column">En attente du temps...</p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    {%endif%}
                 </div>
         {% endfor %}
     </div>

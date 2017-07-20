@@ -2,9 +2,8 @@
 
 namespace AppBundle\Entity;
 
-use DateTime;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Meeting
  *
@@ -28,7 +27,7 @@ class Meeting
     private $description;
 
     /**
-     * @var DateTime
+     * @var \DateTime
      *
      * @ORM\Column(name="date", type="date", nullable=false)
      */
@@ -38,14 +37,6 @@ class Meeting
      * @var string
      *
      * @ORM\Column(name="img", type="string", length=256, nullable=false)
-     * @Assert\File(
-     *     maxSize = "2M",
-     *     maxSizeMessage = "L'image est trop lourde",
-     *     mimeTypes = {"image/jpg", "image/jpeg", "image/gif", "image/png"},
-     *     mimeTypesMessage = "Le fichier choisi ne correspond pas à un fichier valide",
-     *     notFoundMessage = "Le fichier n'a pas été trouvé sur le disque",
-     *     uploadErrorMessage = "Erreur dans l'upload du fichier"
-     * )
      */
     private $img;
 
@@ -111,7 +102,7 @@ class Meeting
     /**
      * Set date
      *
-     * @param DateTime $date
+     * @param \DateTime $date
      *
      * @return Meeting
      */
@@ -125,7 +116,7 @@ class Meeting
     /**
      * Get date
      *
-     * @return DateTime
+     * @return \DateTime
      */
     public function getDate()
     {

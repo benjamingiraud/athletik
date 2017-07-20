@@ -5,27 +5,13 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Result
+ * Inscription
  *
- * @ORM\Table(name="result", indexes={@ORM\Index(name="meeting_id", columns={"meeting_id"}), @ORM\Index(name="user_id", columns={"user_id"})})
+ * @ORM\Table(name="inscription", indexes={@ORM\Index(name="FK_I_meetingID", columns={"meeting_id"}), @ORM\Index(name="FK_I_userID", columns={"user_id"})})
  * @ORM\Entity
  */
-class Result
+class Inscription
 {
-    /**
-     * @var float
-     *
-     * @ORM\Column(name="time", type="float", precision=10, scale=0, nullable=false)
-     */
-    private $time;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="points", type="integer", nullable=false)
-     */
-    private $points;
-
     /**
      * @var integer
      *
@@ -58,54 +44,6 @@ class Result
 
 
     /**
-     * Set time
-     *
-     * @param float $time
-     *
-     * @return Result
-     */
-    public function setTime($time)
-    {
-        $this->time = $time;
-
-        return $this;
-    }
-
-    /**
-     * Get time
-     *
-     * @return float
-     */
-    public function getTime()
-    {
-        return $this->time;
-    }
-
-    /**
-     * Set points
-     *
-     * @param integer $points
-     *
-     * @return Result
-     */
-    public function setPoints($points)
-    {
-        $this->points = $points;
-
-        return $this;
-    }
-
-    /**
-     * Get points
-     *
-     * @return integer
-     */
-    public function getPoints()
-    {
-        return $this->points;
-    }
-
-    /**
      * Get id
      *
      * @return integer
@@ -120,7 +58,7 @@ class Result
      *
      * @param \AppBundle\Entity\Meeting $meeting
      *
-     * @return Result
+     * @return Inscription
      */
     public function setMeeting(\AppBundle\Entity\Meeting $meeting = null)
     {
@@ -144,7 +82,7 @@ class Result
      *
      * @param \AppBundle\Entity\User $user
      *
-     * @return Result
+     * @return Inscription
      */
     public function setUser(\AppBundle\Entity\User $user = null)
     {

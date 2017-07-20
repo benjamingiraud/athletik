@@ -59,17 +59,22 @@ $(document).ready(function() {
             }, 2000, "swing");
     
     // Affichage/Désaffichage des infos des meetings/result
-    $(document).on("click", ".menudown", function() {
-        if ($("div").not($(this)).hasClass("active")) {
-            var wasOpen = $(".active");
-            wasOpen.removeClass("active");
-            wasOpen.parent().parent().parent().next().slideUp("1500");
-            wasOpen.html('Plus d\'infos');
+    $(document).on("click", ".menudown-container", function() {
+        if ($("div").not($(this)).hasClass("activated")) {
+            var wasOpen = $(".activated");
+            wasOpen.removeClass("activated");
+            wasOpen.children(".plusinfo-container").children().removeClass('active');
+            wasOpen.children(".plusinfo-container").children().html('Plus d\'infos');
+            wasOpen.parent().next().slideUp("1500");
         }
-        $(this).toggleClass("active");
-        if ($(this).hasClass("active")) {
-            $(this).html('Moins d\'infos');
-        } else $(this).html('Plus d\'infos');
-        $(this).parent().parent().parent().next().slideToggle("1500");
+        $(this).toggleClass("activated");
+        if ($(this).hasClass("activated")) {
+            $(this).children(".plusinfo-container").children().addClass('active');
+            $(this).children(".plusinfo-container").children().html('Moins d\'infos');
+        } else {
+             $(this).children(".plusinfo-container").children().removeClass('active');
+            $(this).children(".plusinfo-container").children().html('Plus d\'infos');
+        }
+        $(this).parent().next().slideToggle("1500");
     });
 });

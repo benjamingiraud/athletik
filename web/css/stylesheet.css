@@ -31,6 +31,9 @@ header {
     text-align: center;
     padding: 1em 0;
 }
+.menudown-container {
+    cursor: pointer
+}
 .title {
      -webkit-animation-name: spinner; 
     -webkit-animation-timing-function: linear; 
@@ -182,6 +185,8 @@ ul {
     margin-bottom: 2em;
 }
 input, select, button, textarea {
+    font-family: 'Dosis', sans-serif;
+    font-size: inherit;
     border: none;
     box-shadow: 0 0 1px black;
     box-sizing: border-box;
@@ -318,6 +323,14 @@ button.plusinfos {
     margin-bottom: 1em;
     margin-top: 1em;
 }
+.margin-bottom {
+    margin-bottom: 2em;
+}
+.margin-auto {
+    margin: auto;
+}
 .small {
     flex-shrink: 2;
+}
+.fixinput {
 }

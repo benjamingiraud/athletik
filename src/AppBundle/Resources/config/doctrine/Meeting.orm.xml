@@ -15,7 +15,7 @@
       </options>
     </field>
     <field name="date" type="date" column="date" nullable="false"/>
-    <field name="img" type="string" column="img" length="32" nullable="false">
+    <field name="img" type="string" column="img" length="256" nullable="false">
       <options>
         <option name="fixed"/>
       </options>

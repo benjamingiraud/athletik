@@ -4,10 +4,18 @@
         {% if is_granted('ROLE_ADMIN') %}
             <a href="{{ path("new_meeting") }}" class="logo add adminadd">Ajouter un nouvel événement</a>
         {% endif %}
+        {% set registered = false %}
         {% for event in events %}
+            {% if app.user %}
+                {% for inscription in inscriptions if inscription.user.id == app.user.id and inscription.meeting.id == event.id %}
+                    {% set registered = true %}
+                {% else %}
+                    {% set registered = false %}
+                {% endfor %}
+            {% endif %}
                 <div class="meeting-container column-start index hidden effect">
                     <div>
-                        <div class="sumup row-between">
+                        <div class="sumup row-between menudown-container">
                             <div class="infos-container row-around center">
                                 <h2> {{ event.name }} </h2>
                                 <p class="dateinfo"><b> prévu pour le : {{ event.date|date('d/m/y') }}</b></p>
@@ -19,13 +27,16 @@
                     </div>
                     <div class="eventinfo column-start hidden">
                             <img src="{{ asset('img/' ~ event.img) }}" alt={{ event.name }} />
-                        <div>
-                            
-                        </div>
                         <div class="descriptionmeeting">
                             <p>{{ event.description }}</p>
                         </div>
-                            <a class="registermeeting" href="">S'inscire à cette course!</a>
+                            {% if app.user and not registered %}
+                                <a class="registermeeting" href="{{ path('inscription_meeting', {'meeting_id' : event.id }) }}">S'inscire à cette course!</a>
+                            {% elseif registered %}
+                                <p>Vous êtes incrits à cette course.</p>
+                            {% else %}
+                                <p>Envie d'y participer? Inscrivez-vous/Connectez-vous !</p>
+                            {% endif %}
                     </div>
                 </div>
         {% endfor %}

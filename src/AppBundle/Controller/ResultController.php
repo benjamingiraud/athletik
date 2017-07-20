@@ -16,23 +16,19 @@ class ResultController extends Controller
     public function showAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $sql = "SELECT SUM(result.points) as total, SUM(result.time) as ttime, athlete.lastname, athlete.firstname, category.name "
+        // Native query for general classment
+        $sql = "SELECT SUM(result.points) as total, SUM(result.time) as ttime, user.lastname, user.firstname, category.name "
                 . "FROM result "
-                . "inner join athlete on result.athlete_id = athlete.id "
+                . "inner join user on result.user_id = user.id "
                 . "inner join meeting on result.meeting_id = meeting.id "
-                . "inner join category on athlete.category = category.id "
+                . "inner join category on user.category = category.id "
                 . "WHERE YEAR(CURRENT_DATE()) = 2017 "
-                . "GROUP BY athlete.id "
+                . "GROUP BY user.id "
                 . "ORDER BY total DESC ";
         $nativeQuery = $em->getConnection()->prepare($sql);
         $nativeQuery->execute();
         $general_classment = $nativeQuery->fetchAll();
-//        $query_general  = $em->createQuery('SELECT SUM(r.points) as total
-//                                            FROM AppBundle:Result r,
-//                                            GROUP BY r.ahlete
-//                                            ORDER BY total DESC');
-//        $general_classment = $query_general->getResult();
-        
+
         $query_meetings = $em->createQuery('SELECT m
                                             FROM AppBundle:Meeting m
                                             WHERE m.date < :now
@@ -42,23 +38,21 @@ class ResultController extends Controller
         $query_results = $em->createQuery('SELECT r FROM AppBundle:Result r ORDER by r.points DESC');
         $results_meetings = $query_results->getResult();
         
+        $query_inscription = $em->createQuery('SELECT i
+                                   FROM AppBundle:Inscription i
+                                  ');
+        
+        $inscriptions = $query_inscription->getResult();
+        
         return $this->render('results.html.twig', 
               array ('finished_meetings' => $finished_meetings,
                      'results_meetings'  => $results_meetings,
-                     'generals'          => $general_classment
+                     'generals'          => $general_classment,
+                     'inscriptions'       => $inscriptions
                     ));
-//                       
-//        $query = $em->createQuery('SELECT COUNT(r.meeting) as nb, IDENTITY(r.meeting) as id
-//                                   FROM AppBundle:Result r
-//                                   GROUP BY r.meeting
-//                                  ');
-//        
-//        $meetinFinished = $query->getResult();
-//        
-//        $query2 = $em->createQuery('SELECT r FROM AppBundle:Result r');
-//        $results = $query2->getResult();
 //        return $this->render('results.html.twig', 
-//                array ('results' => $results,
-//                       'finished' => $meetinFinished));
+//              array ('individuals'       => $individual_classment,
+//                     'generals'          => $general_classment
+//                    ));
     }
 }
