@@ -77,4 +77,34 @@ $(document).ready(function() {
         }
         $(this).parent().next().slideToggle("1500");
     });
+    
+    $(document).on("change", '.timeedit', function() {
+       $id = $(this).attr('id');
+       
+       $category = $('#category' + $id).html();
+       $coeff = getCoeff($category);
+       
+       $points = (1000/$(this).val()) * $coeff;
+       $('#time' + $id).html(Math.floor($points));
+    });
+    function getCoeff($category) {
+        switch($category) {
+            case 'Masters':
+                return 1.35;
+            case 'Seniors':
+                return 1;
+            case 'Espoirs':
+                return 1.09;
+            case 'Juniors':
+                return 1.18;
+            case 'Cadets':
+                return 1.21;
+            case 'Minimes':
+                return 1.35;
+            case 'Benjamin':
+                return 1.42;
+            case 'Poussins':
+                return 1.5;
+        }
+    }
 });

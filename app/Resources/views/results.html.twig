@@ -199,7 +199,7 @@
                                 </div>
                                 <div class="center column-start">
                                     {% for registered in inscriptions if registered.meeting.id == finished_meeting.id %}
-                                        <span class="styletab array-column">{{ registered.user.category.name }}</span>
+                                        <span id=category{{ registered.user.id }} class="styletab array-column">{{ registered.user.category.name }}</span>
                                     {% endfor %}
                                 </div>
 
@@ -210,7 +210,7 @@
                                 </div>
                                 <div class="center column-start">
                                     {% for registered in inscriptions if registered.meeting.id == finished_meeting.id %}
-                                        <input placeholder="Entrez le temps" class="styletab fixinput array-column">
+                                        <input id={{ registered.user.id }} placeholder="Entrez le temps" class="timeedit styletab fixinput array-column">
                                     {% endfor %}
                                 </div>
 
@@ -221,7 +221,7 @@
                                 </div>
                                 <div class="center column-start">
                                     {% for registered in inscriptions if registered.meeting.id == finished_meeting.id %}
-                                        <p class="styletab array-column">En attente du temps...</p>
+                                        <p id=time{{registered.user.id}} class="styletab array-column">En attente du temps...</p>
                                     {% endfor %}
                                 </div>
                             </div>
