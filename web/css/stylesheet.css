@@ -133,7 +133,6 @@ main {
     justify-content: flex-start;
 }
 nav {
-    width: 100%;
     padding: 1em;
     background: rgba(255, 255, 255, 0.35);
 }
@@ -223,7 +222,7 @@ p {
 }
 .img-div { height:100%; width:100%;}
 img { max-width:100% }
-.index > div, .index > form {
+.index > *{
   background: rgba(255, 255, 255, 0.35);
   border-radius: 3px;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
@@ -277,8 +276,18 @@ button.plusinfos {
     width: 100%;
 }
 .array-column {
-    margin: 0.25em 0;
-    text-align: left;
+    width: 100%;
+    margin: auto;
+    padding: 0.25em 0;
+}
+
+.styletab:nth-child(odd) {
+    background: rgba(0, 0, 0, 0.5);
+        color: white;
+}
+.styletab:nth-child(even) {
+    background: rgba(0, 0, 0, 0.75);
+        color: white;   
 }
 .title-row {
     background: rgba(0, 0, 0, 0.75);
@@ -304,4 +313,11 @@ button.plusinfos {
     width: 100%;
     box-sizing: border-box;
     cursor: pointer;
+}
+.margin {
+    margin-bottom: 1em;
+    margin-top: 1em;
+}
+.small {
+    flex-shrink: 2;
 }

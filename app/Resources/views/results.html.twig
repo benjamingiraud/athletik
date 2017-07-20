@@ -1,6 +1,75 @@
 {% extends 'base.html.twig' %}
 {% block main %}
+    <div class="index">
+    <h2 class='margin general'>Classement général de l'année 2017</h2>
+    </div>
+    <div class="row-start array margin margin-bottom index">
+        <div class="small array-row column-start">
+            <div class="title-row">
+                <span><b>#</b></span>
+            </div>
+            <div class="center column-start">
+                {% for general in generals %}
+                    <span class="array-column styletab">{{ loop.index }}</span>
+                {% endfor %}
+            </div>
+        </div>
+        <div class=" array-row column-start">
+            <div class="title-row">
+                <span><b>Nom</b></span>
+            </div>
+            <div class="center column-start">
+                {% for general in generals %}
+                    <span class="array-column styletab">{{ general.lastname }}</span>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="array-row column-start">
+            <div class="title-row">
+                <span><b>Prénom</b></span>
+            </div>
+            <div class="center column-start">
+                {% for general in generals %}
+                    <span class="array-column styletab">{{ general.firstname }}</span>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="array-row column-start">
+            <div class="title-row">
+                <span><b>Catégorie</b></span>
+            </div>
+            <div class="center column-start">
+                {% for general in generals %}
+                    <span class="array-column styletab">{{ general.name }}</span>
+                {% endfor %}
+            </div>
+
+        </div>
+        <div class="array-row column-start">
+            <div class="title-row">
+                <span><b>Temps total</b></span>
+            </div>
+            <div class="center column-start">
+                {% for general in generals %}
+                    <span class="array-column styletab">{{ general.ttime|round(0, 'ceil') }} min</span>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="array-row column-start">
+            <div class="title-row">
+                <span><b>Points</b></span>
+            </div>
+            <div class="center column-start">
+                {% for general in generals %}
+                    <span class="array-column styletab">{{ general.total }}</span>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
     <div class="form column-start">
+        <div class="index">
+            <h2 class="margin">Classement des courses de l'année 2017</h2>
+        </div>
         {% for finished_meeting in finished_meetings %}
                 <div class="meeting-container column-start index hidden effect">
                     <div>
@@ -15,12 +84,6 @@
                         </div>
                     </div>
                     <div class="eventinfo column-start hidden">
-                        <div>
-                            <img src="{{ asset('img/'~ finished_meeting.img ~'' ) }}" alt={{ finished_meeting.name }} />
-                        </div>
-                        <div class="descriptionmeeting">
-                            <p>{{ finished_meeting.description }}</p>
-                        </div>
                         <div class="row-start array">
                             <div class="array-row column-start">
                                 <div class="title-row">
@@ -28,7 +91,7 @@
                                 </div>
                                 <div class="array-column center column-start">
                                     {% for result in results_meetings if result.meeting.id == finished_meeting.id %}
-                                        <span class="array-column">{{ result.athlete.lastname }}</span>
+                                        <span class="padding array-column">{{ result.athlete.lastname }}</span>
                                     {% endfor %}
                                 </div>
                             </div>
@@ -38,7 +101,7 @@
                                 </div>
                                 <div class="array-column center column-start">
                                     {% for result in results_meetings if result.meeting.id == finished_meeting.id %}
-                                        <span class="array-column">{{ result.athlete.firstname }}</span>
+                                        <span class="padding array-column">{{ result.athlete.firstname }}</span>
                                     {% endfor %}
                                 </div>
                             </div>
@@ -48,7 +111,7 @@
                                 </div>
                                 <div class="array-column center column-start">
                                     {% for result in results_meetings if result.meeting.id == finished_meeting.id %}
-                                        <span class="array-column">{{ result.athlete.category.name }}</span>
+                                        <span class="padding array-column">{{ result.athlete.category.name }}</span>
                                     {% endfor %}
                                 </div>
                                 
@@ -59,7 +122,7 @@
                                 </div>
                                 <div class="array-column center column-start">
                                     {% for result in results_meetings if result.meeting.id == finished_meeting.id %}
-                                        <span class="array-column">{{ result.time }}</span>
+                                        <span class="padding array-column">{{ result.time }}</span>
                                     {% endfor %}
                                 </div>
                                 
@@ -70,10 +133,9 @@
                                 </div>
                                 <div class="array-column center column-start">
                                     {% for result in results_meetings if result.meeting.id == finished_meeting.id %}
-                                        <span class="array-column">{{ result.points }}</span>
+                                        <span class="padding array-column">{{ result.points }}</span>
                                     {% endfor %}
                                 </div>
-                                
                             </div>
                         </div>
                     </div>

@@ -27,9 +27,9 @@
                     </div>
                     <div class="profile">
                         {% if app.user %}
-                                    <a class="logo signin coollinks" href="{#{{ path('profile', { username : app.user.username }) }}#}">{{ app.user.username }}</a><a class="logo disconnect" href="{{ path('logout') }}">Déconnexion</a>
+                            <a class="logo signin coollinks" href="{#{{ path('profile', { username : app.user.username }) }}#}">{{ app.user.username }}</a><a class="logo disconnect" href="{{ path('logout') }}">Déconnexion</a>
                         {% else %}
-                                    <a class="logo signin" href="{{ path("login") }}">Se connecter</a><a class="logo signup" href="{{ path("register") }}">S'inscrire</a>
+                            <a class="logo signin" href="{{ path("login") }}">Se connecter</a><a class="logo signup" href="{{ path("register") }}">S'inscrire</a>
                         {% endif %}    
                     </div>
                 </div>
