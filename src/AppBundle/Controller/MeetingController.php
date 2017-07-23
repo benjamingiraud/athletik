@@ -2,8 +2,8 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Inscription;
 use AppBundle\Entity\Meeting;
+use AppBundle\Entity\Result;
 use AppBundle\Form\MeetingType;
 use DateTime;
 use Doctrine\DBAL\Types\Type;
@@ -27,12 +27,11 @@ class MeetingController extends Controller
                                    WHERE m.date > :now
                                    ORDER BY m.date ASC
                                   ')->setParameter("now", new DateTime("NOW"), Type::DATETIME);
-        $query2 = $em->createQuery('SELECT i
-                                   FROM AppBundle:Inscription i
-                                  ');
+
+        $inscriptions = $this->getDoctrine()->getRepository(Result::class)
+                        ->findBy(['user' => $this->getUser()]);
         
         $meetings     = $query->getResult();
-        $inscriptions = $query2->getResult();
         return $this->render('meetings.html.twig', array(
                 'events'       => $meetings,
                 'inscriptions' => $inscriptions
@@ -80,21 +79,19 @@ class MeetingController extends Controller
     /**
      * @Route("/meetings/inscription/{meeting_id}", name="inscription_meeting")
      */
-    public function InscriptionAction(Request $request, $meeting_id) {
+    public function InscriptionAction($meeting_id) {
         
         $em = $this->getDoctrine()->getManager();
-        $query_meeting = $em->createQuery('SELECT m
-                                   FROM AppBundle:Meeting m
-                                   WHERE m.id = :request_id
-                                  ')->setParameter("request_id", $meeting_id);
+        $meeting = $this->getDoctrine()->getRepository(Meeting::class)
+                ->findOneBy(['id' => $meeting_id]);
         
-        $meetings = $query_meeting->getResult();
+        $result = new Result();
+        $result->setUser($this->getUser());
+        $result->setMeeting($meeting);
+        $result->setTime(0);
+        $result->setPoints(0);
         
-        $inscription = new Inscription();
-        $inscription->setUser($this->getUser());
-        $inscription->setMeeting($meetings[0]);
-        
-        $em->persist($inscription);
+        $em->persist($result);
         $em->flush();
         
         return $this->redirectToRoute('meetings');

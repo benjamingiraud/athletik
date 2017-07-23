@@ -43,20 +43,17 @@ $(document).ready(function() {
         });
     });
     
-    // Effet d'apparition des div de chaques pages, chaque div arrive 0.5s plus 
-    // lentement que celle qui la précède
+    // Effet d'apparition des div de chaques pages, chaque div arrive 0.5s plus lentement que celle qui la précède
     var speed = 500;
     $(".effect").each(function(i, el) {
         if (i % 2 === 0)
             $(this).show("slide", {}, speed);
         else 
             $(this).show( "slide", {direction: 'right'}, speed);
-       speed += 500;
+       speed += 250;
     });
     $(".nav-wrapper").show("slide", {direction: 'right'}, 500);
-    $(".visibility").animate({
-                opacity: '1'
-            }, 2000, "swing");
+    $(".visibility").animate({ opacity: '1' }, 2000, "swing");
     
     // Affichage/Désaffichage des infos des meetings/result
     $(document).on("click", ".menudown-container", function() {
@@ -65,6 +62,8 @@ $(document).ready(function() {
             wasOpen.removeClass("activated");
             wasOpen.children(".plusinfo-container").children().removeClass('active');
             wasOpen.children(".plusinfo-container").children().html('Plus d\'infos');
+            if (wasOpen.parent().next().hasClass("row-start"))
+                wasOpen.parent().next().slideUp("1500").css('display', 'flex');
             wasOpen.parent().next().slideUp("1500");
         }
         $(this).toggleClass("activated");
@@ -72,21 +71,46 @@ $(document).ready(function() {
             $(this).children(".plusinfo-container").children().addClass('active');
             $(this).children(".plusinfo-container").children().html('Moins d\'infos');
         } else {
-             $(this).children(".plusinfo-container").children().removeClass('active');
+            $(this).children(".plusinfo-container").children().removeClass('active');
             $(this).children(".plusinfo-container").children().html('Plus d\'infos');
         }
-        $(this).parent().next().slideToggle("1500");
+        if ($(this).parent().next().hasClass("row-start"))
+            $(this).parent().next().slideToggle("1500").css('display', 'flex');
+        else 
+            $(this).parent().next().slideToggle("1500");
     });
     
-    $(document).on("change", '.timeedit', function() {
-       $id = $(this).attr('id');
-       
-       $category = $('#category' + $id).html();
-       $coeff = getCoeff($category);
-       
-       $points = (1000/$(this).val()) * $coeff;
-       $('#time' + $id).html(Math.floor($points));
+    $(document).on("change", '.timeedit', function() { 
+        
+        var self = $(this);
+        var id_meeting = $(this).parent().parent().parent().attr('id'); // retrieve current meeting's id
+        var id = $(this).attr('id'); // retrieve current athlete's id
+        var category = $('#category' + id).text(); // retrieve current athelete's category
+        var coeff = getCoeff(category); // get coeff according to previously retrieved category
+        var time = $(this).val(); // retrieve time's value typed in the input
+        var points = Math.floor((1000/time) * coeff); // calculate athlete's points according to its time and coeff
+
+        $('#points' + id).text(points); // update row "points" with the new calculated value
+        
+        // and send the data to the controller to add/update this result into database
+        $.ajax({
+            type: 'POST',
+            url: "",
+            data: {
+                meeting_id    : id_meeting,
+                user_id       : id,
+                result_time   : time,
+                result_points : points
+            },
+            success: function(reponse) {
+                self.effect("highlight", {}, 500);
+            }
+        })
+        .fail(function() {
+            alert( "error" );
+        });
     });
+    
     function getCoeff($category) {
         switch($category) {
             case 'Masters':
@@ -101,7 +125,7 @@ $(document).ready(function() {
                 return 1.21;
             case 'Minimes':
                 return 1.35;
-            case 'Benjamin':
+            case 'Benjamins':
                 return 1.42;
             case 'Poussins':
                 return 1.5;

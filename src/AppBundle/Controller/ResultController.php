@@ -2,10 +2,15 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Meeting;
+use AppBundle\Entity\Result;
+use AppBundle\Entity\User;
 use DateTime;
 use Doctrine\DBAL\Types\Type;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class ResultController extends Controller
 {
@@ -13,7 +18,7 @@ class ResultController extends Controller
      * @Route("/result", name="results")
      */
     
-    public function showAction()
+    public function showAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         // Native query for general classment
@@ -31,28 +36,50 @@ class ResultController extends Controller
 
         $query_meetings = $em->createQuery('SELECT m
                                             FROM AppBundle:Meeting m
-                                            WHERE m.date < :now
-                                           ')->setParameter("now", new DateTime("NOW"), Type::DATETIME);
+                                            WHERE m.date < :now'
+                                          )->setParameter("now", new DateTime("NOW"), Type::DATETIME);
         $finished_meetings = $query_meetings->getResult();
         
-        $query_results = $em->createQuery('SELECT r FROM AppBundle:Result r ORDER by r.points DESC');
+        $query_results = $em->createQuery('SELECT r
+                                           FROM AppBundle:Result r 
+                                           ORDER BY r.points DESC');
         $results_meetings = $query_results->getResult();
         
-        $query_inscription = $em->createQuery('SELECT i
-                                   FROM AppBundle:Inscription i
-                                  ');
-        
-        $inscriptions = $query_inscription->getResult();
-        
-        return $this->render('results.html.twig', 
-              array ('finished_meetings' => $finished_meetings,
-                     'results_meetings'  => $results_meetings,
-                     'generals'          => $general_classment,
-                     'inscriptions'       => $inscriptions
-                    ));
-//        return $this->render('results.html.twig', 
-//              array ('individuals'       => $individual_classment,
-//                     'generals'          => $general_classment
-//                    ));
+        if($request->isXmlHttpRequest())
+        {
+            $meeting_id = $request->request->get('meeting_id');
+            $user_id    = $request->request->get('user_id');
+            $time       = $request->request->get('result_time');
+            $points     = $request->request->get('result_points');
+
+            $meeting    = $this->getDoctrine()->getRepository(Meeting::class)->findOneBy(['id' => $meeting_id]);
+            $user       = $this->getDoctrine()->getRepository(User::class)->findOneBy(['id' => $user_id]);
+            $result     = $this->getDoctrine()->getRepository(Result::class)->findOneBy(['user' => $user, 'meeting' => $meeting]);
+            
+            // If result already exists, update it
+            if ($result) {
+                $newresult = $result;
+                $newresult->setTime($time);
+                $newresult->setPoints($points);
+            }
+            // Else insert it
+            else {
+                $newresult = new Result();
+                $newresult->setMeeting($meeting);
+                $newresult->setUser($user);
+                $newresult->setTime($time);
+                $newresult->setPoints($points);
+            }
+            
+            $em->persist($newresult);
+            $em->flush();
+            
+            return new Response("Resultat bien ajouté");  
+        }
+        return $this->render('results.html.twig', array (
+            'finished_meetings' => $finished_meetings,
+            'results'           => $results_meetings,
+            'generals'          => $general_classment,
+        ));
     }
 }

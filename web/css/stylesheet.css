@@ -16,7 +16,7 @@ h1, h2, h3 {
 }
 header h1 {
     font-family: 'Lobster', cursive;
-    font-size: 8em;
+    font-size: 8vw;
 }
 h2 {
     font-family: 'Lobster', cursive;
@@ -24,12 +24,12 @@ h2 {
     font-size: 2em;
 }
 .presentation h2 {
-    margin-top: 0.5em;
+    margin-top: 0.5vw;
 
 }
 header {
     text-align: center;
-    padding: 1em 0;
+    padding: 1vw 0;
 }
 .menudown-container {
     cursor: pointer
@@ -85,7 +85,7 @@ header {
 }
 main {
     width: 75%;
-    margin: 4em auto;
+    margin: 4vw auto;
     text-align: center;
 }
 
@@ -93,21 +93,21 @@ main {
     border-bottom: 1px solid black;
 }*/
 .presentation {
-    margin-bottom: 2em;
+    margin-bottom: 2vw;
 }
 .presentation p {
     width: 75%;
-    margin: 1.5em auto;
+    margin: 1.5vw auto;
 }
 .visibility {
     opacity: 0;
 }
 .bxslider p {
-    margin: 0 auto 0.5em auto;
+    margin: 0 auto 0.5vw auto;
 }
 .list-courses {
     width: 75%;
-    margin: 1.5em auto;
+    margin: 1.5vw auto;
 }
 .row-around {
     display: flex;
@@ -120,10 +120,10 @@ main {
     justify-content: flex-start;
 }
 .center {
-    align-items: center;
+    align-itvws: center;
 }
 .stretch {
-    align-items: stretch;
+    align-itvws: stretch;
 }
 .row-between{
     display: flex;
@@ -136,16 +136,16 @@ main {
     justify-content: flex-start;
 }
 nav {
-    padding: 1em;
+    padding: 1vw;
     background: rgba(255, 255, 255, 0.35);
 }
 nav a {
-    padding: 1em;
+    padding: 1vw;
     color: black;
     transition: 0.33s all ease-out;
 }
 nav a:hover {
-    padding: 1em;
+    padding: 1vw;
     background: rgba(0, 0, 0, 0.50);
     color: white !important;
     transition: 0.33s all ease-out;
@@ -167,12 +167,12 @@ ul {
     margin: auto;
 }
 .description {
-    padding: 0 1em;
+    padding: 0 1vw;
 }
 .title-meeting {
     background: rgba(0, 0, 0, 0.75);
     color: white;
-    padding: 0.25em 0.5em;
+    padding: 0.25vw 0.5vw;
     font-weight: bold;
 }
 .hidden {
@@ -182,7 +182,7 @@ ul {
     margin: auto;
 }
 .title-container {
-    margin-bottom: 2em;
+    margin-bottom: 2vw;
 }
 input, select, button, textarea {
     font-family: 'Dosis', sans-serif;
@@ -190,9 +190,9 @@ input, select, button, textarea {
     border: none;
     box-shadow: 0 0 1px black;
     box-sizing: border-box;
-    padding: 0.25em 0.5em;
+    padding: 0.25vw 0.5vw;
     width: 25%;
-    margin: 0.5em auto 0 auto;
+    margin: 0.5vw auto 0 auto;
     transition: 0.33s all ease-out;
 }
 textarea {
@@ -201,7 +201,7 @@ textarea {
 form div {
     display: flex;
     flex-direction: column;
-    margin-bottom: 1em;
+    margin-bottom: 1vw;
 }
 input:focus {
     box-shadow: 0 0 5px black;
@@ -209,7 +209,7 @@ input:focus {
 button {
     background-color: black;
     color: white;
-    padding: 1em 2em;
+    padding: 1vw 2vw;
     cursor: pointer;
 }
 button:hover {
@@ -240,7 +240,7 @@ img { max-width:100% }
     margin: auto;
 }
 .dateinfo {
-    margin-left: 1em;
+    margin-left: 1vw;
 }
 button.plusinfos {
     background: none;
@@ -253,11 +253,11 @@ button.plusinfos {
     cursor: pointer;
 }
 .eventinfo {
-    margin: 2em auto;
-    padding: 2em 0;
+    margin: 2vw auto;
+    padding: 2vw 0;
 }
 .registermeeting {
-    padding: 1em;
+    padding: 1vw;
     color: white;
     background: rgba(0, 0, 0, 0.5);
     transition: 0.33s all ease-out;
@@ -267,7 +267,7 @@ button.plusinfos {
     background: rgba(255, 255, 255, 0.5);
 }
 .fullwidth {
-    margin-top: 2em;
+    margin-top: 2vw;
 }
 .descriptionmeeting {
     width: 75%;
@@ -283,9 +283,8 @@ button.plusinfos {
 .array-column {
     width: 100%;
     margin: auto;
-    padding: 0.25em 0;
+    padding: 0.25vw 0;
 }
-
 .styletab:nth-child(odd) {
     background: rgba(0, 0, 0, 0.5);
         color: white;
@@ -297,7 +296,7 @@ button.plusinfos {
 .title-row {
     background: rgba(0, 0, 0, 0.75);
     color: white;
-    padding: 0.25em 0.5em;
+    padding: 0.25vw 0.5vw;
 }
 .nav-wrapper {
     width: 100%;
@@ -311,7 +310,7 @@ button.plusinfos {
     text-shadow: 2px 2px 2px black;
 }
 .adminadd {
-    padding: 1em;
+    padding: 1vw;
     background: rgba(0, 0, 0, 0.75);
     color: white;
     font-size: 125%;
@@ -320,17 +319,15 @@ button.plusinfos {
     cursor: pointer;
 }
 .margin {
-    margin-bottom: 1em;
-    margin-top: 1em;
+    margin-bottom: 1vw;
+    margin-top: 1vw;
 }
 .margin-bottom {
-    margin-bottom: 2em;
+    margin-bottom: 2vw;
 }
 .margin-auto {
     margin: auto;
 }
 .small {
     flex-shrink: 2;
-}
-.fixinput {
 }

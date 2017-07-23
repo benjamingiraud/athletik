@@ -33,7 +33,7 @@ class SecurityController extends Controller
             $em->persist($user);
             $em->flush();
             
-            return $this->redirectToRoute('index');
+            return $this->redirectToRoute('login');
         }
         
         return $this->render('register.html.twig',

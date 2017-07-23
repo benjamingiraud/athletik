@@ -4,6 +4,7 @@
         {% if is_granted('ROLE_ADMIN') %}
             <a href="{{ path("new_meeting") }}" class="logo add adminadd">Ajouter un nouvel événement</a>
         {% endif %}
+        
         {% set registered = false %}
         {% for event in events %}
             {% if app.user %}
@@ -18,7 +19,7 @@
                         <div class="sumup row-between menudown-container">
                             <div class="infos-container row-around center">
                                 <h2> {{ event.name }} </h2>
-                                <p class="dateinfo"><b> prévu pour le : {{ event.date|date('d/m/y') }}</b></p>
+                                <span class="dateinfo"><b> prévu pour le : {{ event.date|date('d/m/y') }}</b></span>
                             </div>
                             <div class="plusinfo-container row-around center">
                                 <div class="logo menudown plusinfos">Plus d'infos</div>
@@ -28,14 +29,14 @@
                     <div class="eventinfo column-start hidden">
                             <img src="{{ asset('img/' ~ event.img) }}" alt={{ event.name }} />
                         <div class="descriptionmeeting">
-                            <p>{{ event.description }}</p>
+                            <span>{{ event.description }}</span>
                         </div>
                             {% if app.user and not registered %}
                                 <a class="registermeeting" href="{{ path('inscription_meeting', {'meeting_id' : event.id }) }}">S'inscire à cette course!</a>
                             {% elseif registered %}
-                                <p>Vous êtes incrits à cette course.</p>
+                                <span>Vous êtes incrits à cette course.</span>
                             {% else %}
-                                <p>Envie d'y participer? Inscrivez-vous/Connectez-vous !</p>
+                                <span>Envie d'y participer? <a class="underline" href="{{ path('register') }}">Inscrivez-vous</a> / <a class="underline" href={{ path('login') }}>Connectez-vous !</a></span>
                             {% endif %}
                     </div>
                 </div>
