@@ -50,7 +50,7 @@ $(document).ready(function() {
             $(this).show("slide", {}, speed);
         else 
             $(this).show( "slide", {direction: 'right'}, speed);
-       speed += 250;
+       speed += 150;
     });
     $(".nav-wrapper").show("slide", {direction: 'right'}, 500);
     $(".visibility").animate({ opacity: '1' }, 2000, "swing");
@@ -83,9 +83,11 @@ $(document).ready(function() {
     $(document).on("change", '.timeedit', function() { 
         
         var self = $(this);
+        
         var id_meeting = $(this).parent().parent().parent().attr('id'); // retrieve current meeting's id
         var id = $(this).attr('id'); // retrieve current athlete's id
         var category = $('#category' + id).text(); // retrieve current athelete's category
+        
         var coeff = getCoeff(category); // get coeff according to previously retrieved category
         var time = $(this).val(); // retrieve time's value typed in the input
         var points = Math.floor((1000/time) * coeff); // calculate athlete's points according to its time and coeff
@@ -102,12 +104,13 @@ $(document).ready(function() {
                 result_time   : time,
                 result_points : points
             },
-            success: function(reponse) {
-                self.effect("highlight", {}, 500);
+            success: function() {
+                self.css("color", "#98FB98");
+            },
+            error: function() {
+                self.css("color", "#FF6961");
+                $('#points' + id).text("Veuillez rentrer un temps valide");
             }
-        })
-        .fail(function() {
-            alert( "error" );
         });
     });
     

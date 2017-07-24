@@ -52,9 +52,17 @@ class ResultController extends Controller
             $time       = $request->request->get('result_time');
             $points     = $request->request->get('result_points');
 
-            $meeting    = $this->getDoctrine()->getRepository(Meeting::class)->findOneBy(['id' => $meeting_id]);
-            $user       = $this->getDoctrine()->getRepository(User::class)->findOneBy(['id' => $user_id]);
-            $result     = $this->getDoctrine()->getRepository(Result::class)->findOneBy(['user' => $user, 'meeting' => $meeting]);
+            $meeting    = $this->getDoctrine()
+                    ->getRepository(Meeting::class)
+                    ->findOneBy(['id' => $meeting_id]);
+            
+            $user       = $this->getDoctrine()
+                    ->getRepository(User::class)
+                    ->findOneBy(['id' => $user_id]);
+            
+            $result     = $this->getDoctrine()
+                    ->getRepository(Result::class)
+                    ->findOneBy(['user' => $user, 'meeting' => $meeting]);
             
             // If result already exists, update it
             if ($result) {
