@@ -23,34 +23,40 @@ $(document).ready(function() {
     // Gestion des effets quand le sticky commence
     $('#sticker').on('sticky-start', function() {
         $(this).css('background' , 'rgba(0, 0, 0, 0.75)');
-        $("#minititle").slideUp("500");
         $("nav a").css('color' , 'white');
-        $(".nav-wrappering").animate({
-            width: '95%'
-        }, 500, function() {
-            $("#minititle").slideDown("500");
-        });
+        $(".menu-activator span").css('color', 'white');
+        if ($('.nav-wrappering').width() > 360) {
+            $(".nav-wrappering").animate({
+                width: '95%'
+            }, 500, function() {
+                $("#minititle").slideDown("500");
+            });
+        }
     });
     // Gestion des effets quand le sticky ne fait plus effet
     $('#sticker').on('sticky-end', function() {
         $(this).css('background' , 'rgba(255, 255, 255, 0.35)');
+        if ($('.nav-wrappering').width() <= 360) { 
+            $("nav a").css('color', 'white');
+        } else $("nav a").css('color', 'black');
+        $(".menu-activator span").css('color', 'black');
         $("#minititle").slideUp("500");
-        $("nav a").css('color' , 'black');
-        $(".nav-wrappering").animate({
-            width: '75%'
-        }, 500, function() {
-           
-        });
+        if ($('.nav-wrappering').width() > 360) {
+            $(".nav-wrappering").animate({
+                width: '75%'
+            }, 500, function() {
+            });
+        }
     });
     
-    // Effet d'apparition des div de chaques pages, chaque div arrive 0.5s plus lentement que celle qui la précède
+    // Effet d'apparition des div de chaques pages, chaque div arrive 0.1s plus lentement que celle qui la précède
     var speed = 500;
     $(".effect").each(function(i, el) {
         if (i % 2 === 0)
             $(this).show("slide", {}, speed);
         else 
             $(this).show( "slide", {direction: 'right'}, speed);
-       speed += 150;
+       speed += 100;
     });
     $(".nav-wrapper").show("slide", {direction: 'right'}, 500);
     $(".visibility").animate({ opacity: '1' }, 2000, "swing");
@@ -77,19 +83,21 @@ $(document).ready(function() {
         if ($(this).parent().next().hasClass("row-start"))
             $(this).parent().next().slideToggle("1500").css('display', 'flex');
         else 
-            $(this).parent().next().slideToggle("1500");
+            $(this).parent().next().slideToggle("1500").css('display, flex');
     });
-    
+    $(document).on("click", '.menu-activator', function() {
+        $(this).next().slideToggle("500");
+    })
     $(document).on("change", '.timeedit', function() { 
         
         var self = $(this);
         
-        var id_meeting = $(this).parent().parent().parent().attr('id'); // retrieve current meeting's id
-        var id = $(this).attr('id'); // retrieve current athlete's id
+        var id_meeting = self.parent().parent().parent().attr('id'); // retrieve current meeting's id
+        var id = self.attr('id'); // retrieve current athlete's id
         var category = $('#category' + id).text(); // retrieve current athelete's category
         
         var coeff = getCoeff(category); // get coeff according to previously retrieved category
-        var time = $(this).val(); // retrieve time's value typed in the input
+        var time = self.val(); // retrieve time's value typed in the input
         var points = Math.floor((1000/time) * coeff); // calculate athlete's points according to its time and coeff
 
         $('#points' + id).text(points); // update row "points" with the new calculated value

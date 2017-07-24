@@ -70,3 +70,6 @@
 .add:before {
     content: "\f067";
 }
+.menus::before {
+    content: "\f039";
+}

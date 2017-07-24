@@ -22,15 +22,20 @@
             <nav id="sticker">
                 <div class="nav-wrappering row-between center menu">
                     <h2 id="minititle" class="title hidden">Athletik</h2>
-                    <div class="nav-links">
-                        <a class="logo home" href="{{ path('index') }}">Accueil</a><a class="logo date" href="{{ path("meetings") }}">Evenements à venir</a><a class="logo classement" href="{{ path("results") }}">Résultats</a>
+                    <div class="menu-activator hidden">
+                        <span class="logo menus">Menu</span>
                     </div>
-                    <div class="profile">
-                        {% if app.user %}
-                            <a class="logo signin coollinks" href="{#{{ path('profile', { username : app.user.username }) }}#}">{{ app.user.username }}</a><a class="logo disconnect" href="{{ path('logout') }}">Déconnexion</a>
-                        {% else %}
-                            <a class="logo signin" href="{{ path("login") }}">Se connecter</a><a class="logo signup" href="{{ path("register") }}">S'inscrire</a>
-                        {% endif %}    
+                    <div class="menu-container row-between center menu">
+                        <div class="nav-links menu row-between">
+                            <a class="logo home" href="{{ path('index') }}">Accueil</a><a class="logo date" href="{{ path("meetings") }}">Evenements à venir</a><a class="logo classement" href="{{ path("results") }}">Résultats</a>
+                        </div>
+                        <div class="profile menu row-between">
+                            {% if app.user %}
+                                <a class="logo signin coollinks" href="{#{{ path('profile', { username : app.user.username }) }}#}">{{ app.user.username }}</a><a class="logo disconnect" href="{{ path('logout') }}">Déconnexion</a>
+                            {% else %}
+                                <a class="logo signin" href="{{ path("login") }}">Se connecter</a><a class="logo signup" href="{{ path("register") }}">S'inscrire</a>
+                            {% endif %}    
+                        </div>
                     </div>
                 </div>
             </nav>

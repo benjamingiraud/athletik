@@ -36,7 +36,8 @@
                             {% elseif registered %}
                                 <span>Vous êtes incrits à cette course.</span>
                             {% else %}
-                                <span>Envie d'y participer? <a class="underline" href="{{ path('register') }}">Inscrivez-vous</a> / <a class="underline" href={{ path('login') }}>Connectez-vous !</a></span>
+                                <span>Envie d'y participer? </span>
+                                <div class="margin"><a class="underline registermeeting" href="{{ path('register') }}">Inscrivez-vous</a> / <a class="registermeeting underline" href={{ path('login') }}>Connectez-vous !</a></div>
                             {% endif %}
                     </div>
                 </div>
