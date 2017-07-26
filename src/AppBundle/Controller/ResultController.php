@@ -45,8 +45,8 @@ class ResultController extends Controller
                                            ORDER BY r.points DESC');
         $results_meetings = $query_results->getResult();
         
-        if($request->isXmlHttpRequest())
-        {
+        if($request->isXmlHttpRequest()) {
+            
             $meeting_id = $request->request->get('meeting_id');
             $user_id    = $request->request->get('user_id');
             $time       = $request->request->get('result_time');
@@ -64,22 +64,10 @@ class ResultController extends Controller
                     ->getRepository(Result::class)
                     ->findOneBy(['user' => $user, 'meeting' => $meeting]);
             
-            // If result already exists, update it
-            if ($result) {
-                $newresult = $result;
-                $newresult->setTime($time);
-                $newresult->setPoints($points);
-            }
-            // Else insert it
-            else {
-                $newresult = new Result();
-                $newresult->setMeeting($meeting);
-                $newresult->setUser($user);
-                $newresult->setTime($time);
-                $newresult->setPoints($points);
-            }
+            $result->setTime($time);
+            $result->setPoints($points);
             
-            $em->persist($newresult);
+            $em->persist($result);
             $em->flush();
             
             return new Response("Resultat bien ajouté");  

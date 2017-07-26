@@ -3,67 +3,26 @@
     <div class="index">
     <h2 class='margin general'>Classement général de l'année 2017</h2>
     </div>
-    <div class="row-start array margin margin-bottom ">
-        <div class="small array-row column-start">
-            <div class="title-row">
-                <span><b>#</b></span>
-            </div>
-            <div class="center column-start">
-                {% for general in generals %}
-                    <span class="array-column styletab">{{ loop.index }}</span>
-                {% endfor %}
-            </div>
+    <div class="classment-array column-start">
+        <div class="row-start title-row">
+            <span class="small array-column"><b>#</b></span>
+            <span class="array-column"><b>Nom</b></span>
+            <span class="array-column"><b>Prénom</b></span>
+            <span class="array-column"><b>Catégorie</b></span>
+            <span class="array-column"><b>Temps</b></span>
+            <span class="array-column"><b>Points</b></span>
         </div>
-        <div class=" array-row column-start">
-            <div class="title-row">
-                <span><b>Nom</b></span>
+        <div class="column-start">
+            {% for general in generals%}
+            <div class="row-start styletab">
+                <span class="small array-column">{{ loop.index }}</span>
+                <span class="array-column">{{ general.lastname }}</span>
+                <span class="array-column">{{ general.firstname }}</span>
+                <span class="array-column">{{ general.name }}</span>
+                <span class="array-column">{{ general.ttime|number_format(2, 'min', 'sec') }} </span>
+                <span class="array-column">{{ general.total }}</span>
             </div>
-            <div class="center column-start">
-                {% for general in generals %}
-                    <span class="array-column styletab">{{ general.lastname }}</span>
-                {% endfor %}
-            </div>
-        </div>
-        <div class="array-row column-start">
-            <div class="title-row">
-                <span><b>Prénom</b></span>
-            </div>
-            <div class="center column-start">
-                {% for general in generals %}
-                    <span class="array-column styletab">{{ general.firstname }}</span>
-                {% endfor %}
-            </div>
-        </div>
-        <div class="array-row column-start">
-            <div class="title-row">
-                <span><b>Catégorie</b></span>
-            </div>
-            <div class="center column-start">
-                {% for general in generals %}
-                    <span class="array-column styletab">{{ general.name }}</span>
-                {% endfor %}
-            </div>
-
-        </div>
-        <div class="array-row column-start">
-            <div class="title-row">
-                <span><b>Temps</b></span>
-            </div>
-            <div class="center column-start">
-                {% for general in generals %}
-                    <span class="array-column styletab">{{ general.ttime|number_format(2, 'min', 'sec') }} </span>
-                {% endfor %}
-            </div>
-        </div>
-        <div class="array-row column-start">
-            <div class="title-row">
-                <span><b>Points</b></span>
-            </div>
-            <div class="center column-start">
-                {% for general in generals %}
-                    <span class="array-column styletab">{{ general.total }}</span>
-                {% endfor %}
-            </div>
+            {% endfor %}
         </div>
     </div>
     <div class="form column-start">  
@@ -83,70 +42,31 @@
                         </div>
                     </div>
                 </div>
-                <div id='{{finished_meeting.id}}' class="row-start array margin hidden">
-                    <div class="small array-row column-start">
-                        <div class="title-row">
-                            <span><b>#</b></span>
-                        </div>
-                        <div class="center column-start">
-                            {% for result in results if result.meeting.id == finished_meeting.id %}
-                                    <span class="array-column styletab">{{ loop.index }}</span>
-                            {% endfor %}
-                        </div>
+                <div id="{{ finished_meeting.id }}" class="hidden classment-array column-start">
+                    <div class="row-start title-row">
+                        <span class="small array-column"><b>#</b></span>
+                        <span class="array-column"><b>Nom</b></span>
+                        <span class="array-column"><b>Prénom</b></span>
+                        <span class="array-column"><b>Catégorie</b></span>
+                        <span class="array-column"><b>Temps</b></span>
+                        <span class="array-column"><b>Points</b></span>
                     </div>
-                    <div class="array-row column-start">
-                        <div class="title-row">
-                            <span><b>Nom</b></span>
+                    <div class="column-start">
+                        {% for result in results if result.meeting.id == finished_meeting.id %}
+                        <div class="row-start styletab">
+                            <span class="small array-column">{{ loop.index }}</span>
+                            <span class="array-column">{{ result.user.lastname }}</span>
+                            <span class="array-column">{{ result.user.firstname }}</span>
+                            <span class="array-column">{{ result.user.category.name }}</span>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <input type="text" placeholder="{{result.time|number_format(2, 'min', 'sec')}}" class="timeedit array-column">
+                                <input type="hidden" value="{{ result.user.id }}">
+                            {% else %}
+                                <span class="array-column">{{result.time|number_format(2, 'min', 'sec') }}</span>
+                            {% endif %}
+                            <span class="array-column">{{result.points}}</span>
                         </div>
-                        <div class="center column-start">
-                            {% for result in results if result.meeting.id == finished_meeting.id %}
-                                <span class="styletab array-column">{{ result.user.lastname }}</span>
-                            {% endfor %}
-                        </div>
-                    </div>
-                    <div class="array-row column-start">
-                        <div class="title-row">
-                            <span><b>Prénom</b></span>
-                        </div>
-                        <div class="center column-start">
-                             {% for result in results if result.meeting.id == finished_meeting.id %}
-                                <span class="styletab array-column">{{ result.user.firstname }}</span>
-                            {% endfor %}
-                        </div>
-                    </div>
-                    <div class="array-row column-start">
-                        <div class="title-row">
-                            <span><b>Catégorie</b></span>
-                        </div>
-                        <div class="center column-start">
-                            {% for result in results if result.meeting.id == finished_meeting.id %}
-                                <span id=category{{ result.user.id }} class="styletab array-column">{{ result.user.category.name }}</span>
-                            {% endfor %}
-                        </div>
-                    </div>
-                    <div class="array-row column-start">
-                        <div class="title-row">
-                            <span><b>Temps</b></span>
-                        </div>
-                        <div class="center column-start">
-                            {% for result in results if result.meeting.id == finished_meeting.id %}
-                                {% if is_granted('ROLE_ADMIN') %}
-                                    <input id="{{ result.user.id }}" placeholder="{{result.time|number_format(2, 'min', 'sec')}}" class="timeedit styletab fixinput array-column">
-                                {% else %}
-                                    <span class="styletab array-column">{{result.time|number_format(2, 'min', 'sec') }}</span>
-                                {% endif %}
-                            {% endfor %}
-                        </div>
-                    </div>
-                    <div class="array-row column-start">
-                        <div class="title-row">
-                            <span><b>Points</b></span>
-                        </div>
-                        <div class="center column-start">
-                            {% for result in results if result.meeting.id == finished_meeting.id %}
-                                <span id=points{{result.user.id}} class="styletab array-column">{{result.points}}</span>
-                            {% endfor %}
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>

@@ -87,37 +87,42 @@ $(document).ready(function() {
     });
     $(document).on("click", '.menu-activator', function() {
         $(this).next().slideToggle("500");
-    })
-    $(document).on("change", '.timeedit', function() { 
+    });
+    
+    $(".timeedit").on("change", function() { 
         
         var self = $(this);
         
-        var id_meeting = self.parent().parent().parent().attr('id'); // retrieve current meeting's id
-        var id = self.attr('id'); // retrieve current athlete's id
-        var category = $('#category' + id).text(); // retrieve current athelete's category
+        var meetingId = self.parent().parent().parent().attr('id'); // retrieve current meeting's id
+        var userId    = self.next().val(); // retrieve current athlete's id
+        var category  = self.prev().text(); // retrieve current athelete's category
+        var coeff     = getCoeff(category); // get coeff according to previously retrieved category
+        var time      = self.val(); // retrieve time's value typed in the input
         
-        var coeff = getCoeff(category); // get coeff according to previously retrieved category
-        var time = self.val(); // retrieve time's value typed in the input
-        var points = Math.floor((1000/time) * coeff); // calculate athlete's points according to its time and coeff
-
-        $('#points' + id).text(points); // update row "points" with the new calculated value
+        var points    = Math.floor((1000/time) * coeff); // calculate athlete's points according to its time and coeff
         
         // and send the data to the controller to add/update this result into database
+        if (isNaN(points)) {
+             self.css("color", "#FF6961");
+             self.next().next().text("Rentrez un temps valide!");
+             return;
+        }
         $.ajax({
             type: 'POST',
             url: "",
             data: {
-                meeting_id    : id_meeting,
-                user_id       : id,
+                meeting_id    : meetingId,
+                user_id       : userId,
                 result_time   : time,
                 result_points : points
             },
             success: function() {
                 self.css("color", "#98FB98");
+                self.next().next().text(points); // update row "points" with the new calculated value
             },
             error: function() {
                 self.css("color", "#FF6961");
-                $('#points' + id).text("Veuillez rentrer un temps valide");
+                self.next().next().text("Erreur");
             }
         });
     });

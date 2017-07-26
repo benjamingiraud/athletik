@@ -4,7 +4,6 @@
         {% if is_granted('ROLE_ADMIN') %}
             <a href="{{ path("new_meeting") }}" class="logo add adminadd">Ajouter un nouvel événement</a>
         {% endif %}
-        
         {% set registered = false %}
         {% for event in events %}
             {% if app.user %}
@@ -37,7 +36,7 @@
                                 <span>Vous êtes incrits à cette course.</span>
                             {% else %}
                                 <span>Envie d'y participer? </span>
-                                <div class="margin"><a class="underline registermeeting" href="{{ path('register') }}">Inscrivez-vous</a> / <a class="registermeeting underline" href={{ path('login') }}>Connectez-vous !</a></div>
+                                <div class="margin padding"><a class="underline registermeeting" href="{{ path('register') }}">Inscrivez-vous</a> / <a class="registermeeting underline" href={{ path('login') }}>Connectez-vous !</a></div>
                             {% endif %}
                     </div>
                 </div>

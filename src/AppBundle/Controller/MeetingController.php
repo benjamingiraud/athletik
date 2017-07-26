@@ -18,20 +18,23 @@ class MeetingController extends Controller
      * @Route("/meetings", name="meetings")
      */
     
-    public function showAction(Request $request)
+    public function showAction()
     {
         $em = $this->getDoctrine()->getManager();
-
-        $query = $em->createQuery('SELECT m
-                                   FROM AppBundle:Meeting m
-                                   WHERE m.date > :now
-                                   ORDER BY m.date ASC
-                                  ')->setParameter("now", new DateTime("NOW"), Type::DATETIME);
-
-        $inscriptions = $this->getDoctrine()->getRepository(Result::class)
-                        ->findBy(['user' => $this->getUser()]);
+//        $meetings = $em->getRepository('AppBundle:Meeting')
+//                ->findFuture();
+        $meetings = $em->createQuery(
+               'SELECT m
+                FROM AppBundle:Meeting m
+                WHERE m.date > :now
+                ORDER BY m.date ASC'
+        )
+        ->setParameter("now", new DateTime("NOW"), Type::DATETIME)
+        ->getResult();
         
-        $meetings     = $query->getResult();
+        $inscriptions = $em->getRepository('AppBundle:Result')
+                ->findBy(['user' => $this->getUser()]);
+        
         return $this->render('meetings.html.twig', array(
                 'events'       => $meetings,
                 'inscriptions' => $inscriptions
